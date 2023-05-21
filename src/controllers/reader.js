@@ -26,7 +26,9 @@ exports.getReader = async (req, res) => {
 exports.updateReader = async (req, res) => {
   const readerId = req.params.id;
   const updateData = req.body;
-  const [ updatedRows ] = await Reader.update(updateData, { where: { id: readerId } });
+  const [updatedRows] = await Reader.update(updateData, {
+    where: { id: readerId },
+  });
 
   if (updatedRows) {
     res.status(200).json(updatedRows);

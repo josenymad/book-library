@@ -16,6 +16,7 @@ describe('/readers', () => {
         const response = await request(app).post('/readers').send({
           name: 'Elizabeth Bennet',
           email: 'future_ms_darcy@gmail.com',
+          password: 'randompassword'
         });
         const newReaderRecord = await Reader.findByPk(response.body.id, {
           raw: true,
@@ -23,8 +24,11 @@ describe('/readers', () => {
 
         expect(response.status).to.equal(201);
         expect(response.body.name).to.equal('Elizabeth Bennet');
+        expect(response.body.email).to.equal('future_ms_darcy@gmail.com');
+        expect(response.body.password).to.equal('randompassword');
         expect(newReaderRecord.name).to.equal('Elizabeth Bennet');
         expect(newReaderRecord.email).to.equal('future_ms_darcy@gmail.com');
+        expect(newReaderRecord.password).to.equal('randompassword');
       });
     });
   });
@@ -37,9 +41,10 @@ describe('/readers', () => {
         Reader.create({
           name: 'Elizabeth Bennet',
           email: 'future_ms_darcy@gmail.com',
+          password: 'randompassword'
         }),
-        Reader.create({ name: 'Arya Stark', email: 'vmorgul@me.com' }),
-        Reader.create({ name: 'Lyra Belacqua', email: 'darknorth123@msn.org' }),
+        Reader.create({ name: 'Arya Stark', email: 'vmorgul@me.com', password: 'anotherpassword' }),
+        Reader.create({ name: 'Lyra Belacqua', email: 'darknorth123@msn.org', password: 'password' }),
       ]);
     });
 
@@ -55,6 +60,7 @@ describe('/readers', () => {
 
           expect(reader.name).to.equal(expected.name);
           expect(reader.email).to.equal(expected.email);
+          expect(reader.password).to.equal(expected.password);
         });
       });
     });
@@ -67,6 +73,7 @@ describe('/readers', () => {
         expect(response.status).to.equal(200);
         expect(response.body.name).to.equal(reader.name);
         expect(response.body.email).to.equal(reader.email);
+        expect(response.body.password).to.equal(reader.password);
       });
 
       it('returns a 404 if the reader does not exist', async () => {
@@ -86,7 +93,7 @@ describe('/readers', () => {
         const updatedReaderRecord = await Reader.findByPk(reader.id, {
           raw: true,
         });
-        
+
         expect(response.status).to.equal(200);
         expect(updatedReaderRecord.email).to.equal('miss_e_bennet@gmail.com');
       });
@@ -95,7 +102,7 @@ describe('/readers', () => {
         const response = await request(app)
           .patch('/readers/12345')
           .send({ email: 'some_new_email@gmail.com' });
-        
+
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal('The reader could not be found.');
       });

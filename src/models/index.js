@@ -1,10 +1,12 @@
 const Sequelize = require('sequelize');
 const ReaderModel = require('./reader');
 
+const { PGDATABASE, PGUSER, PGPASSWORD, PGHOST, PGPORT } = process.env;
+
 const setupDatabase = () => {
-  const connection = new Sequelize('book_library_dev', 'postgres', 'password', {
-    host: 'localhost',
-    port: 5432,
+  const connection = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
+    host: PGHOST,
+    port: PGPORT,
     dialect: 'postgres',
     logging: false,
   });

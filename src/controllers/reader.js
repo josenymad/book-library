@@ -6,7 +6,7 @@ exports.addReader = async (req, res) => {
   res.status(201).json(newReader);
 };
 
-exports.getAllReaders = async (req, res) => {
+exports.getAllReaders = async (_, res) => {
   const readers = await Reader.findAll();
 
   res.status(200).json(readers);

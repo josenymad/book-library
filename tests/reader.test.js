@@ -63,6 +63,28 @@ describe('/readers', () => {
         expect(response.status).to.equal(400);
         expect(response.body.errors[0].message).to.equal('Please enter a password.');
       });
+
+      it('does not allow email in the wrong format', async () => {
+        const response = await request(app).post('/readers').send({
+          name: 'Full Name',
+          email: 'wrongemailexamplehotmail.co.uk',
+          password: 'password'
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Please enter a valid email.');
+      });
+
+      it('does not allow password shorter than 8 characters', async () => {
+        const response = await request(app).post('/readers').send({
+          name: 'Full Name',
+          email: 'correctemail@gmail.com',
+          password: 'guess'
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Password must have at least 8 characters.');
+      });
     });
   });
 

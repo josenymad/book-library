@@ -25,13 +25,14 @@ module.exports = (connection, DataTypes) => {
     password: { 
       type: DataTypes.STRING, 
       allowNull: false,
-      len: [8, 32],
       validate: {
         notNull: {
           msg: 'Please enter a password.'
         },
-        len: {
-          msg: 'Password must have between 8 and 32 characters.'
+        checkLength(password) {
+          if (password.length < 8) {
+            throw new Error('Password must have at least 8 characters.');
+          }
         }
       }
     },

@@ -1,9 +1,9 @@
 module.exports = (connection, DataTypes) => {
   const schema = {
-    title: DataTypes.STRING,
-    author: DataTypes.STRING,
-    genre: DataTypes.STRING,
-    isbn: DataTypes.STRING,
+    title: { type: DataTypes.STRING, },
+    author: { type: DataTypes.STRING, },
+    genre: { type: DataTypes.STRING, },
+    isbn: { type: DataTypes.STRING, },
   };
 
   const BookModel = connection.define('Book', schema);

@@ -30,6 +30,39 @@ describe('/readers', () => {
         expect(newReaderRecord.email).to.equal('future_ms_darcy@gmail.com');
         expect(newReaderRecord.password).to.equal('randompassword');
       });
+
+      it('does not allow name to be null', async () => {
+        const response = await request(app).post('/readers').send({
+          name: null,
+          email: 'randomemail@gmail.com',
+          password: 'securepassword',
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Please enter your name.');
+      });
+
+      it('does not allow email to be null', async () => {
+        const response = await request(app).post('/readers').send({
+          name: 'Full Name',
+          email: null,
+          password: 'password'
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Please enter your email.');
+      });
+
+      it('does not allow password to be null', async () => {
+        const response = await request(app).post('/readers').send({
+          name: 'Full Name',
+          email: 'email@gmail.com',
+          password: null
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Please enter a password.');
+      });
     });
   });
 

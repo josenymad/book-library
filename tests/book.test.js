@@ -33,6 +33,30 @@ describe('/books', () => {
         expect(newBookRecord.genre).to.equal('Non-fiction');
         expect(newBookRecord.isbn).to.equal('9781408893210');
       });
+
+      it('does not allow title to be null', async () => {
+        const response = await request(app).post('/books').send({
+          title: null,
+          author: 'Rutger Bregman',
+          genre: 'Non-fiction',
+          isbn: '9781408893210',
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Please enter a book title.');
+      });
+
+      it('does not allow author to be null', async () => {
+        const response = await request(app).post('/books').send({
+          title: 'Utopia For Realists',
+          author: null,
+          genre: 'Non-fiction',
+          isbn: '9781408893210',
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Please enter an author.');
+      });
     });
   });
 

@@ -5,36 +5,36 @@ module.exports = (connection, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Please enter your name.'
-        }
-      }
+          msg: 'Please enter your name.',
+        },
+      },
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false, 
+      allowNull: false,
       isEmail: true,
       validate: {
         notNull: {
-          msg: 'Please enter your email.' 
+          msg: 'Please enter your email.',
         },
         isEmail: {
-          msg: 'Please enter a valid email.'
-        }
-      }
+          msg: 'Please enter a valid email.',
+        },
+      },
     },
-    password: { 
-      type: DataTypes.STRING, 
+    password: {
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Please enter a password.'
+          msg: 'Please enter a password.',
         },
         checkLength(password) {
           if (password.length < 8) {
             throw new Error('Password must have at least 8 characters.');
           }
-        }
-      }
+        },
+      },
     },
   };
 

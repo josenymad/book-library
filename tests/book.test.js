@@ -43,7 +43,9 @@ describe('/books', () => {
         });
 
         expect(response.status).to.equal(400);
-        expect(response.body.errors[0].message).to.equal('Please enter a book title.');
+        expect(response.body.errors[0].message).to.equal(
+          'Please enter a book title.'
+        );
       });
 
       it('does not allow author to be null', async () => {
@@ -55,7 +57,9 @@ describe('/books', () => {
         });
 
         expect(response.status).to.equal(400);
-        expect(response.body.errors[0].message).to.equal('Please enter an author.');
+        expect(response.body.errors[0].message).to.equal(
+          'Please enter an author.'
+        );
       });
     });
   });

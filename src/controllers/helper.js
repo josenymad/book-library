@@ -9,6 +9,10 @@ const getModel = (model) => {
   return models[model];
 };
 
+const get404error = (model) => {
+    return { error: `The ${model} could not be found.` };
+}
+
 exports.addItem = async (res, model, item) => {
   const Model = getModel(model);
 
@@ -28,7 +32,7 @@ exports.getItem = async (res, model, itemId) => {
   if (item) {
     res.status(200).json(item);
   } else {
-    res.status(404).json({ error: `The ${model} could not be found.` });
+    res.status(404).json(get404error(model));
   }
 };
 
@@ -48,7 +52,7 @@ exports.updateItem = async (res, model, itemId, updateData) => {
   if (updatedRows) {
     res.status(200).json(updatedRows);
   } else {
-    res.status(404).json({ error: `The ${model} could not be found.` });
+    res.status(404).json(get404error(model));
   }
 };
 
@@ -59,6 +63,6 @@ exports.deleteItem = async (res, model, itemId) => {
   if (deletedRows) {
     res.status(204).json(deletedRows);
   } else {
-    res.status(404).json({ error: `The ${model} could not be found.` });
+    res.status(404).json(get404error(model));
   }
 };

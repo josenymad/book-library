@@ -3,23 +3,31 @@ module.exports = (connection, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      notEmpty: true,
       validate: {
         notNull: {
           msg: 'Please enter your name.',
         },
+        notEmpty: {
+          msg: 'Name cannot be empty.'
+        }
       },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       isEmail: true,
+      unique: {
+        args: true,
+        msg: 'Email is already registered.'
+      },
       validate: {
         notNull: {
           msg: 'Please enter your email.',
         },
         isEmail: {
           msg: 'Please enter a valid email.',
-        },
+        }
       },
     },
     password: {

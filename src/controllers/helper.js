@@ -1,22 +1,23 @@
-const { Book, Reader } = require('../models');
+const { Book, Reader, Genre } = require('../models');
 
 const getModel = (model) => {
   const models = {
     book: Book,
     reader: Reader,
+    genre: Genre,
   };
 
   return models[model];
 };
 
 const get404error = (model) => {
-    return { error: `The ${model} could not be found.` };
+  return { error: `The ${model} could not be found.` };
 };
 
 const removePassword = (object) => {
   if (Object.hasOwn(object.dataValues, 'password')) {
     delete object.dataValues.password;
-  } 
+  }
 
   return object;
 };
@@ -47,8 +48,8 @@ exports.getItem = async (res, model, itemId) => {
 exports.getAllItems = async (res, model) => {
   const Model = getModel(model);
   const items = await Model.findAll();
-  
-  items.forEach(item => {
+
+  items.forEach((item) => {
     removePassword(item);
   });
 
@@ -57,7 +58,7 @@ exports.getAllItems = async (res, model) => {
 
 exports.updateItem = async (res, model, itemId, updateData) => {
   const Model = getModel(model);
-  const [ updatedRows ] = await Model.update(updateData, {
+  const [updatedRows] = await Model.update(updateData, {
     where: { id: itemId },
   });
 

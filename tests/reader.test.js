@@ -95,6 +95,17 @@ describe('/readers', () => {
           'Password must have at least 8 characters.'
         );
       });
+
+      it('does not allow name to be empty', async () => {
+        const response = await request(app).post('/readers').send({
+          name: '',
+          email: 'emailme@yahoo.co.uk',
+          password: 'securelock'
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Name cannot be empty.');
+      });
     });
   });
 
@@ -119,6 +130,19 @@ describe('/readers', () => {
           password: 'password',
         }),
       ]);
+    });
+
+    describe('POST /readers', () => {
+      it('does not allow for duplicate emails', async () => {
+        const response = await request(app).post('/readers').send({
+          name: 'Random Reader',
+          email: 'darknorth123@msn.org',
+          password: 'greatpassword'
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Email is already registered.');
+      });
     });
 
     describe('GET /readers', () => {

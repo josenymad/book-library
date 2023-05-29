@@ -67,11 +67,13 @@ describe('/books', () => {
           title: '',
           author: 'Great Author',
           genre: 'Fantasy',
-          isbn: '7890986745362'
+          isbn: '7890986745362',
         });
 
         expect(response.status).to.equal(400);
-        expect(response.body.errors[0].message).to.equal('Book title cannot be empty.');
+        expect(response.body.errors[0].message).to.equal(
+          'Book title cannot be empty.'
+        );
       });
 
       it('does not allow author to be empty', async () => {
@@ -79,11 +81,13 @@ describe('/books', () => {
           title: 'Harry Potter',
           author: '',
           genre: 'Fantasy',
-          isbn: '8904627894527'
+          isbn: '8904627894527',
         });
 
         expect(response.status).to.equal(400);
-        expect(response.body.errors[0].message).to.equal('Author name cannot be empty.');
+        expect(response.body.errors[0].message).to.equal(
+          'Author name cannot be empty.'
+        );
       });
     });
   });

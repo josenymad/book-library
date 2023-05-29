@@ -9,8 +9,8 @@ module.exports = (connection, DataTypes) => {
           msg: 'Please enter your name.',
         },
         notEmpty: {
-          msg: 'Name cannot be empty.'
-        }
+          msg: 'Name cannot be empty.',
+        },
       },
     },
     email: {
@@ -19,7 +19,7 @@ module.exports = (connection, DataTypes) => {
       isEmail: true,
       unique: {
         args: true,
-        msg: 'Email is already registered.'
+        msg: 'Email is already registered.',
       },
       validate: {
         notNull: {
@@ -27,7 +27,7 @@ module.exports = (connection, DataTypes) => {
         },
         isEmail: {
           msg: 'Please enter a valid email.',
-        }
+        },
       },
     },
     password: {

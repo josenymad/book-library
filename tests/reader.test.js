@@ -100,11 +100,13 @@ describe('/readers', () => {
         const response = await request(app).post('/readers').send({
           name: '',
           email: 'emailme@yahoo.co.uk',
-          password: 'securelock'
+          password: 'securelock',
         });
 
         expect(response.status).to.equal(400);
-        expect(response.body.errors[0].message).to.equal('Name cannot be empty.');
+        expect(response.body.errors[0].message).to.equal(
+          'Name cannot be empty.'
+        );
       });
     });
   });
@@ -137,11 +139,13 @@ describe('/readers', () => {
         const response = await request(app).post('/readers').send({
           name: 'Random Reader',
           email: 'darknorth123@msn.org',
-          password: 'greatpassword'
+          password: 'greatpassword',
         });
 
         expect(response.status).to.equal(400);
-        expect(response.body.errors[0].message).to.equal('Email is already registered.');
+        expect(response.body.errors[0].message).to.equal(
+          'Email is already registered.'
+        );
       });
     });
 

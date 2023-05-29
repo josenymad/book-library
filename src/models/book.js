@@ -10,7 +10,7 @@ module.exports = (connection, DataTypes) => {
         },
         notEmpty: {
           msg: 'Book title cannot be empty.',
-        }
+        },
       },
     },
     author: {
@@ -23,7 +23,7 @@ module.exports = (connection, DataTypes) => {
         },
         notEmpty: {
           msg: 'Author name cannot be empty.',
-        }
+        },
       },
     },
     genre: { type: DataTypes.STRING },

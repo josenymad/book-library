@@ -211,12 +211,16 @@ describe('/readers', () => {
 
       it('returns a 400 if updating email with one already registered', async () => {
         const reader = readers[2];
-        const response = await request(app).patch(`/readers/${reader.id}`).send({
-          email: 'future_ms_darcy@gmail.com',
-        });
+        const response = await request(app)
+          .patch(`/readers/${reader.id}`)
+          .send({
+            email: 'future_ms_darcy@gmail.com',
+          });
 
         expect(response.status).to.equal(400);
-        expect(response.body.errors[0].message).to.equal('Email is already registered.');
+        expect(response.body.errors[0].message).to.equal(
+          'Email is already registered.'
+        );
       });
     });
 

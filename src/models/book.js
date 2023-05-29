@@ -30,7 +30,6 @@ module.exports = (connection, DataTypes) => {
         },
       },
     },
-    genre: { type: DataTypes.STRING },
     isbn: { type: DataTypes.STRING },
   };
 

@@ -16,7 +16,6 @@ describe('/books', () => {
         const response = await request(app).post('/books').send({
           title: 'Utopia For Realists',
           author: 'Rutger Bregman',
-          genre: 'Non-fiction',
           isbn: '9781408893210',
         });
         const newBookRecord = await Book.findByPk(response.body.id, {
@@ -26,11 +25,9 @@ describe('/books', () => {
         expect(response.status).to.equal(201);
         expect(response.body.title).to.equal('Utopia For Realists');
         expect(response.body.author).to.equal('Rutger Bregman');
-        expect(response.body.genre).to.equal('Non-fiction');
         expect(response.body.isbn).to.equal('9781408893210');
         expect(newBookRecord.title).to.equal('Utopia For Realists');
         expect(newBookRecord.author).to.equal('Rutger Bregman');
-        expect(newBookRecord.genre).to.equal('Non-fiction');
         expect(newBookRecord.isbn).to.equal('9781408893210');
       });
 
@@ -161,19 +158,19 @@ describe('/books', () => {
         const book = books[0];
         const response = await request(app)
           .patch(`/books/${book.id}`)
-          .send({ genre: 'Fiction' });
+          .send({ isbn: '2896056472967' });
         const updatedBookRecord = await Book.findByPk(book.id, {
           raw: true,
         });
 
         expect(response.status).to.equal(200);
-        expect(updatedBookRecord.genre).to.equal('Fiction');
+        expect(updatedBookRecord.isbn).to.equal('2896056472967');
       });
 
       it('returns a 404 if the book does not exist', async () => {
         const response = await request(app)
           .patch('/books/12345')
-          .send({ genre: 'Fiction' });
+          .send({ isbn: '4906758945378' });
 
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal('The book could not be found.');

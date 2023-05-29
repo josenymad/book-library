@@ -37,12 +37,31 @@ exports.addItem = async (res, model, item) => {
 
 exports.getItem = async (res, model, itemId) => {
   const Model = getModel(model);
-  const item = await Model.findByPk(itemId);
 
-  if (item) {
-    res.status(200).json(removePassword(item));
+  if (model === 'book') {
+    return Model.findByPk(itemId, { include: Genre }).then((item) => {
+      if (item) {
+        res.status(200).json(removePassword(item));
+      } else {
+        res.status(404).json(get404error(model));
+      }
+    });
+  } else if (model === 'genre') {
+    return Model.findByPk(itemId, { include: Book }).then((item) => {
+      if (item) {
+        res.status(200).json(removePassword(item));
+      } else {
+        res.status(404).json(get404error(model));
+      }
+    });
   } else {
-    res.status(404).json(get404error(model));
+    const item = await Model.findByPk(itemId);
+
+    if (item) {
+      res.status(200).json(removePassword(item));
+    } else {
+      res.status(404).json(get404error(model));
+    }
   }
 };
 

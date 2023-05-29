@@ -135,7 +135,7 @@ describe('/readers', () => {
     });
 
     describe('POST /readers', () => {
-      it('does not allow for duplicate emails', async () => {
+      it('returns a 400 when creating reader with email already registered', async () => {
         const response = await request(app).post('/readers').send({
           name: 'Random Reader',
           email: 'darknorth123@msn.org',
@@ -207,6 +207,16 @@ describe('/readers', () => {
 
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal('The reader could not be found.');
+      });
+
+      it('returns a 400 if updating email with one already registered', async () => {
+        const reader = readers[2];
+        const response = await request(app).patch(`/readers/${reader.id}`).send({
+          email: 'future_ms_darcy@gmail.com',
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal('Email is already registered.');
       });
     });
 

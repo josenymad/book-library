@@ -134,6 +134,18 @@ describe('/genres', () => {
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal('The genre could not be found.');
       });
+
+      it('returns a 400 if trying to patch with duplicate genre', async () => {
+        const genre = genres[2];
+        const response = await request(app).patch(`/genres/${genre.id}`).send({
+          genre: 'Fantasy',
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal(
+          'Genre already exists.'
+        );
+      });
     });
 
     describe('DELETE /genres/:id', () => {

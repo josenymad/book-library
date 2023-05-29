@@ -4,6 +4,10 @@ module.exports = (connection, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       notEmpty: true,
+      unique: {
+        args: true,
+        msg: 'Book already exists.',
+      },
       validate: {
         notNull: {
           msg: 'Please enter a book title.',

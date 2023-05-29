@@ -58,15 +58,19 @@ exports.getAllItems = async (res, model) => {
 };
 
 exports.updateItem = async (res, model, itemId, updateData) => {
-  const Model = getModel(model);
-  const [updatedRows] = await Model.update(updateData, {
-    where: { id: itemId },
-  });
+  try {
+    const Model = getModel(model);
+    const [updatedRows] = await Model.update(updateData, {
+      where: { id: itemId },
+    });
 
-  if (updatedRows) {
-    res.status(200).json(updatedRows);
-  } else {
-    res.status(404).json(get404error(model));
+    if (updatedRows) {
+      res.status(200).json(updatedRows);
+    } else {
+      res.status(404).json(get404error(model));
+    }
+  } catch (error) {
+    res.status(400).json(error);
   }
 };
 

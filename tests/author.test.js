@@ -136,6 +136,20 @@ describe('/authors', () => {
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal('The author could not be found.');
       });
+
+      it('returns a 400 if trying to patch with duplicate author', async () => {
+        const author = authors[2];
+        const response = await request(app)
+          .patch(`/authors/${author.id}`)
+          .send({
+            author: 'Aldous Huxley',
+          });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal(
+          'Author already exists.'
+        );
+      });
     });
 
     describe('DELETE /authors/:id', () => {

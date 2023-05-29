@@ -178,6 +178,18 @@ describe('/books', () => {
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal('The book could not be found.');
       });
+
+      it('returns a 400 if trying to patch with duplicate book', async () => {
+        const book = books[2];
+        const response = await request(app).patch(`/books/${book.id}`).send({
+          title: '1984',
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors[0].message).to.equal(
+          'Book already exists.'
+        );
+      });
     });
 
     describe('DELETE /books/:id', () => {

@@ -13,4 +13,6 @@ bookRouter.route('/').post(addBook).get(getAllBooks);
 
 bookRouter.route('/:id').get(getBook).patch(updateBook).delete(deleteBook);
 
+bookRouter.route('/:id/:fk').get(getBook);
+
 module.exports = bookRouter;

@@ -35,35 +35,17 @@ exports.addItem = async (res, model, item) => {
   }
 };
 
-exports.getItem = async (res, model, itemId) => {
+exports.getItem = async (res, model, itemId, association = null) => {
   const Model = getModel(model);
+  const Association = getModel(association);
 
-  if (model === 'book') {
-    return Model.findByPk(itemId, { include: Genre }).then((item) => {
-      if (item) {
-        res.status(200).json(removePassword(item));
-      } else {
-        res.status(404).json(get404error(model));
-      }
-    });
-  }
-  
-  if (model === 'genre') {
-    return Model.findByPk(itemId, { include: Book }).then((item) => {
-      if (item) {
-        res.status(200).json(removePassword(item));
-      } else {
-        res.status(404).json(get404error(model));
-      }
-    });
-  }
-  const item = await Model.findByPk(itemId);
-
-  if (item) {
-    res.status(200).json(removePassword(item));
-  } else {
-    res.status(404).json(get404error(model));
-  }
+  return Model.findByPk(itemId, { include: Association }).then((item) => {
+    if (item) {
+      res.status(200).json(removePassword(item));
+    } else {
+      res.status(404).json(get404error(model));
+    }
+  });
 };
 
 exports.getAllItems = async (res, model) => {
@@ -78,12 +60,13 @@ exports.getAllItems = async (res, model) => {
       res.status(200).json(items);
     });
   }
-  
+
   if (model === 'genre') {
     return Model.findAll({ include: Book }).then((items) => {
       items.forEach((item) => {
         removePassword(item);
       });
+
       res.status(200).json(items);
     });
   }

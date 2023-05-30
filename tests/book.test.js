@@ -35,7 +35,6 @@ describe('/books', () => {
         const response = await request(app).post('/books').send({
           title: null,
           author: 'Rutger Bregman',
-          genre: 'Non-fiction',
           isbn: '9781408893210',
         });
 
@@ -49,7 +48,6 @@ describe('/books', () => {
         const response = await request(app).post('/books').send({
           title: 'Utopia For Realists',
           author: null,
-          genre: 'Non-fiction',
           isbn: '9781408893210',
         });
 
@@ -63,7 +61,6 @@ describe('/books', () => {
         const response = await request(app).post('/books').send({
           title: '',
           author: 'Great Author',
-          genre: 'Fantasy',
           isbn: '7890986745362',
         });
 
@@ -77,7 +74,6 @@ describe('/books', () => {
         const response = await request(app).post('/books').send({
           title: 'Harry Potter',
           author: '',
-          genre: 'Fantasy',
           isbn: '8904627894527',
         });
 
@@ -97,19 +93,16 @@ describe('/books', () => {
         Book.create({
           title: '1984',
           author: 'George Orwell',
-          genre: 'Dystopian Science Fiction',
           isbn: '9780451524935',
         }),
         Book.create({
           title: 'Brave New World',
           author: 'Aldous Huxley',
-          genre: 'Dystopian Science Fiction',
           isbn: '9780099518471',
         }),
         Book.create({
           title: 'Lord of the Flies',
           author: 'William Golding',
-          genre: 'Dystopian Fiction',
           isbn: '9780571191475',
         }),
       ]);
@@ -127,7 +120,6 @@ describe('/books', () => {
 
           expect(book.title).to.equal(expected.title);
           expect(book.author).to.equal(expected.author);
-          expect(book.genre).to.equal(expected.genre);
           expect(book.isbn).to.equal(expected.isbn);
         });
       });
@@ -141,7 +133,6 @@ describe('/books', () => {
         expect(response.status).to.equal(200);
         expect(response.body.title).to.equal(book.title);
         expect(response.body.author).to.equal(book.author);
-        expect(response.body.genre).to.equal(book.genre);
         expect(response.body.isbn).to.equal(book.isbn);
       });
 

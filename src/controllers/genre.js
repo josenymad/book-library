@@ -10,7 +10,7 @@ exports.addGenre = (req, res) => addItem(res, 'genre', req.body);
 
 exports.getAllGenres = (_, res) => getAllItems(res, 'genre');
 
-exports.getGenre = (req, res) => getItem(res, 'genre', req.params.id);
+exports.getGenre = (req, res) => getItem(res, 'genre', req.params.id, req.params.fk);
 
 exports.updateGenre = (req, res) =>
   updateItem(res, 'genre', req.params.id, req.body);

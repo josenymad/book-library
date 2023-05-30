@@ -10,7 +10,8 @@ exports.addBook = (req, res) => addItem(res, 'book', req.body);
 
 exports.getAllBooks = (_, res) => getAllItems(res, 'book');
 
-exports.getBook = (req, res) => getItem(res, 'book', req.params.id);
+exports.getBook = (req, res) =>
+  getItem(res, 'book', req.params.id, req.params.fk);
 
 exports.updateBook = (req, res) =>
   updateItem(res, 'book', req.params.id, req.body);

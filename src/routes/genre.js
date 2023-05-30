@@ -13,4 +13,6 @@ genreRouter.route('/').post(addGenre).get(getAllGenres);
 
 genreRouter.route('/:id').get(getGenre).patch(updateGenre).delete(deleteGenre);
 
+genreRouter.route('/:id/:fk').get(getGenre);
+
 module.exports = genreRouter;

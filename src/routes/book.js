@@ -11,8 +11,10 @@ const bookRouter = express.Router();
 
 bookRouter.route('/').post(addBook).get(getAllBooks);
 
+bookRouter.route('/?with').get(getAllBooks);
+
 bookRouter.route('/:id').get(getBook).patch(updateBook).delete(deleteBook);
 
-bookRouter.route('/:id/:fk').get(getBook);
+bookRouter.route('/:id/?with').get(getBook);
 
 module.exports = bookRouter;

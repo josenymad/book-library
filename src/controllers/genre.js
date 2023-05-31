@@ -8,9 +8,10 @@ const {
 
 exports.addGenre = (req, res) => addItem(res, 'genre', req.body);
 
-exports.getAllGenres = (_, res) => getAllItems(res, 'genre');
+exports.getAllGenres = (req, res) => getAllItems(res, 'genre', req.query.with);
 
-exports.getGenre = (req, res) => getItem(res, 'genre', req.params.id, req.params.fk);
+exports.getGenre = (req, res) =>
+  getItem(res, 'genre', req.params.id, req.query.with);
 
 exports.updateGenre = (req, res) =>
   updateItem(res, 'genre', req.params.id, req.body);

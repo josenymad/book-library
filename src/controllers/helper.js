@@ -35,42 +35,22 @@ exports.addItem = async (res, model, item) => {
   }
 };
 
-exports.getItem = async (res, model, itemId, association = null) => {
+exports.getItem = async (res, model, itemId, association) => {
   const Model = getModel(model);
   const Association = getModel(association);
+  const item = await Model.findByPk(itemId, { include: Association });
 
-  return Model.findByPk(itemId, { include: Association }).then((item) => {
-    if (item) {
-      res.status(200).json(removePassword(item));
-    } else {
-      res.status(404).json(get404error(model));
-    }
-  });
+  if (item) {
+    res.status(200).json(removePassword(item));
+  } else {
+    res.status(404).json(get404error(model));
+  }
 };
 
-exports.getAllItems = async (res, model) => {
+exports.getAllItems = async (res, model, association) => {
   const Model = getModel(model);
-
-  if (model === 'book') {
-    return Model.findAll({ include: Genre }).then((items) => {
-      items.forEach((item) => {
-        removePassword(item);
-      });
-
-      res.status(200).json(items);
-    });
-  }
-
-  if (model === 'genre') {
-    return Model.findAll({ include: Book }).then((items) => {
-      items.forEach((item) => {
-        removePassword(item);
-      });
-
-      res.status(200).json(items);
-    });
-  }
-  const items = await Model.findAll();
+  const Association = getModel(association);
+  const items = await Model.findAll({ include: Association });
 
   items.forEach((item) => {
     removePassword(item);

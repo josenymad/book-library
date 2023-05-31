@@ -8,10 +8,10 @@ const {
 
 exports.addBook = (req, res) => addItem(res, 'book', req.body);
 
-exports.getAllBooks = (_, res) => getAllItems(res, 'book');
+exports.getAllBooks = (req, res) => getAllItems(res, 'book', req.query.with);
 
 exports.getBook = (req, res) =>
-  getItem(res, 'book', req.params.id, req.params.fk);
+  getItem(res, 'book', req.params.id, req.query.with);
 
 exports.updateBook = (req, res) =>
   updateItem(res, 'book', req.params.id, req.body);

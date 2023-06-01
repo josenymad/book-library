@@ -11,10 +11,10 @@ const genreRouter = express.Router();
 
 genreRouter.route('/').post(addGenre).get(getAllGenres);
 
-genreRouter.route('/?with').get(getAllGenres);
+genreRouter.route('/?').get(getAllGenres);
 
 genreRouter.route('/:id').get(getGenre).patch(updateGenre).delete(deleteGenre);
 
-genreRouter.route('/:id/?with').get(getGenre);
+genreRouter.route('/:id/?').get(getGenre);
 
 module.exports = genreRouter;

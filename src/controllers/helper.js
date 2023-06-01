@@ -20,6 +20,10 @@ const removePassword = (object) => {
     delete object.dataValues.password;
   }
 
+  if (Object.hasOwn(object.dataValues, 'Reader')) {
+    delete object.Reader.dataValues.password;
+  }
+
   return object;
 };
 

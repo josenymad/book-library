@@ -11,10 +11,14 @@ const authorRouter = express.Router();
 
 authorRouter.route('/').post(addAuthor).get(getAllAuthors);
 
+authorRouter.route('/?').get(getAllAuthors);
+
 authorRouter
   .route('/:id')
   .get(getAuthor)
   .patch(updateAuthor)
   .delete(deleteAuthor);
+
+authorRouter.route('/:id/?').get(getAuthor);
 
 module.exports = authorRouter;

@@ -8,9 +8,11 @@ const {
 
 exports.addReader = (req, res) => addItem(res, 'reader', req.body);
 
-exports.getAllReaders = (_, res) => getAllItems(res, 'reader');
+exports.getAllReaders = (req, res) =>
+  getAllItems(res, 'reader', req.query.with, req.query.also);
 
-exports.getReader = (req, res) => getItem(res, 'reader', req.params.id);
+exports.getReader = (req, res) =>
+  getItem(res, 'reader', req.params.id, req.query.with, req.query.also);
 
 exports.updateReader = (req, res) =>
   updateItem(res, 'reader', req.params.id, req.body);

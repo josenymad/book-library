@@ -8,9 +8,11 @@ const {
 
 exports.addAuthor = (req, res) => addItem(res, 'author', req.body);
 
-exports.getAllAuthors = (_, res) => getAllItems(res, 'author');
+exports.getAllAuthors = (req, res) =>
+  getAllItems(res, 'author', req.query.with, req.query.also);
 
-exports.getAuthor = (req, res) => getItem(res, 'author', req.params.id);
+exports.getAuthor = (req, res) =>
+  getItem(res, 'author', req.params.id, req.query.with, req.query.also);
 
 exports.updateAuthor = (req, res) =>
   updateItem(res, 'author', req.params.id, req.body);

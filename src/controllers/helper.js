@@ -24,9 +24,8 @@ const removePassword = (object) => {
 };
 
 exports.addItem = async (res, model, item) => {
-  const Model = getModel(model);
-
   try {
+    const Model = getModel(model);
     const newItem = await Model.create(item);
 
     res.status(201).json(removePassword(newItem));
@@ -42,30 +41,30 @@ exports.getItem = async (
   firstAssociation,
   secondAssociation
 ) => {
-  const Model = getModel(model);
-  const FirstAssociation = getModel(firstAssociation);
-  const SecondAssociation = getModel(secondAssociation);
-  let item;
+  try {
+    const Model = getModel(model);
+    const FirstAssociation = getModel(firstAssociation);
+    const SecondAssociation = getModel(secondAssociation);
+    let item;
 
-  if (firstAssociation && secondAssociation) {
-    item = await Model.findByPk(itemId, {
-      include: [{ model: FirstAssociation }, { model: SecondAssociation }],
-    });
-  }
+    if (firstAssociation && secondAssociation) {
+      item = await Model.findByPk(itemId, {
+        include: [{ model: FirstAssociation }, { model: SecondAssociation }],
+      });
+    }
 
-  if (firstAssociation && !secondAssociation) {
-    item = await Model.findByPk(itemId, {
-      include: [{ model: FirstAssociation }],
-    });
-  }
+    if (firstAssociation && !secondAssociation) {
+      item = await Model.findByPk(itemId, {
+        include: [{ model: FirstAssociation }],
+      });
+    }
 
-  if (!firstAssociation && !secondAssociation) {
-    item = await Model.findByPk(itemId);
-  }
+    if (!firstAssociation && !secondAssociation) {
+      item = await Model.findByPk(itemId);
+    }
 
-  if (item) {
     res.status(200).json(removePassword(item));
-  } else {
+  } catch (error) {
     res.status(404).json(get404error(model));
   }
 };
@@ -76,30 +75,34 @@ exports.getAllItems = async (
   firstAssociation,
   secondAssociation
 ) => {
-  const Model = getModel(model);
-  const FirstAssociation = getModel(firstAssociation);
-  const SecondAssociation = getModel(secondAssociation);
-  let items;
+  try {
+    const Model = getModel(model);
+    const FirstAssociation = getModel(firstAssociation);
+    const SecondAssociation = getModel(secondAssociation);
+    let items;
 
-  if (firstAssociation && secondAssociation) {
-    items = await Model.findAll({
-      include: [{ model: FirstAssociation }, { model: SecondAssociation }],
+    if (firstAssociation && secondAssociation) {
+      items = await Model.findAll({
+        include: [{ model: FirstAssociation }, { model: SecondAssociation }],
+      });
+    }
+
+    if (firstAssociation && !secondAssociation) {
+      items = await Model.findAll({ include: [{ model: FirstAssociation }] });
+    }
+
+    if (!firstAssociation && !secondAssociation) {
+      items = await Model.findAll();
+    }
+
+    items.forEach((item) => {
+      removePassword(item);
     });
+
+    res.status(200).json(items);
+  } catch (error) {
+    res.status(404).json(get404error(model));
   }
-
-  if (firstAssociation && !secondAssociation) {
-    items = await Model.findAll({ include: [{ model: FirstAssociation }] });
-  }
-
-  if (!firstAssociation && !secondAssociation) {
-    items = await Model.findAll();
-  }
-
-  items.forEach((item) => {
-    removePassword(item);
-  });
-
-  res.status(200).json(items);
 };
 
 exports.updateItem = async (res, model, itemId, updateData) => {

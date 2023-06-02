@@ -46,32 +46,36 @@ It features 4 tables: Books, Authors, Readers, and Genres.
 
 ### When getting data with associated tables, make sure to _not_ use the plural version of the associated table name:
 
-    `http://localhost:3000/books/?with=genre` ✔︎
-    `http://localhost:3000/books/?with=genres` ✖︎
+    `http://localhost:3000/books/4/?with=genre` ✔︎
+    `http://localhost:3000/books/4/?with=genres` ✖︎
 
-| Route                                                      | HTTP Method | Description                                                |
-| ---------------------------------------------------------- | ----------- | ---------------------------------------------------------- |
-| /books                                                     | POST        | Creates a book                                             |
-| /readers                                                   | POST        | Creates a reader                                           |
-| /authors                                                   | POST        | Creates an author                                          |
-| /genres                                                    | POST        | Creates a genre                                            |
-| /books                                                     | GET         | Gets all books                                             |
-| /readers                                                   | GET         | Gets all readers                                           |
-| /authors                                                   | GET         | Gets all authors                                           |
-| /genres                                                    | GET         | Gets all genres                                            |
-| /books/id                                                  | GET         | Finds book by id                                           |
-| /readers/`id`                                              | GET         | Finds reader by id                                         |
-| /authors/`id`                                              | GET         | Finds author by id                                         |
-| /genres/`id`                                               | GET         | Finds genre by id                                          |
-| /books/?with=`firstAssociation`&also=`secondAssociation`   | GET         | Gets all books with optional data from associated tables   |
-| /readers/?with=`firstAssociation`&also=`secondAssociation` | GET         | Gets all readers with optional data from associated tables |
-| /authors/?with=`firstAssociation`&also=`secondAssociation` | GET         | Gets all authors with optional data from associated tables |
-| /genres/?with=`firstAssociation`&also=`secondAssociation`  | GET         | Gets all genres with optional data from associated tables  |
-| /books/`id`                                                | PATCH       | Updates book                                               |
-| /readers/`id`                                              | PATCH       | Updates reader                                             |
-| /authors/`id`                                              | PATCH       | Updates author                                             |
-| /genres/`id`                                               | PATCH       | Updates genre                                              |
-| /books/`id`                                                | DELETE      | Deletes book                                               |
-| /readers/`id`                                              | DELETE      | Deletes reader                                             |
-| /authors/`id`                                              | DELETE      | Deletes author                                             |
-| /genres/`id`                                               | DELETE      | Deletes genre                                              |
+| Route                                                           | HTTP Method | Description                                                |
+| ----------------------------------------------------------------| ----------- | ---------------------------------------------------------- |
+| /books                                                          | POST        | Creates a book                                             |
+| /readers                                                        | POST        | Creates a reader                                           |
+| /authors                                                        | POST        | Creates an author                                          |
+| /genres                                                         | POST        | Creates a genre                                            |
+| /books                                                          | GET         | Gets all books                                             |
+| /readers                                                        | GET         | Gets all readers                                           |
+| /authors                                                        | GET         | Gets all authors                                           |
+| /genres                                                         | GET         | Gets all genres                                            |
+| /books/`id`                                                     | GET         | Finds book by id                                           |
+| /readers/`id`                                                   | GET         | Finds reader by id                                         |
+| /authors/`id`                                                   | GET         | Finds author by id                                         |
+| /genres/`id`                                                    | GET         | Finds genre by id                                          |
+| /books/?with=`firstAssociation`&also=`secondAssociation`        | GET         | Gets all books with optional data from associated tables   |
+| /readers/?with=`firstAssociation`&also=`secondAssociation`      | GET         | Gets all readers with optional data from associated tables |
+| /authors/?with=`firstAssociation`&also=`secondAssociation`      | GET         | Gets all authors with optional data from associated tables |
+| /genres/?with=`firstAssociation`&also=`secondAssociation`       | GET         | Gets all genres with optional data from associated tables  |
+| /books/`id`/?with=`firstAssociation`&also=`secondAssociation`   | GET         | Gets book by id with optional data from associated tables  |
+| /readers/`id`/?with=`firstAssociation`&also=`secondAssociation` | GET         | Gets reader by id with optional data from associated tables|
+| /authors/`id`/?with=`firstAssociation`&also=`secondAssociation` | GET         | Gets author by id with optional data from associated tables|
+| /genres/`id`/?with=`firstAssociation`&also=`secondAssociation`  | GET         | Gets genres by id with optional data from associated tables|
+| /books/`id`                                                     | PATCH       | Updates book                                               |
+| /readers/`id`                                                   | PATCH       | Updates reader                                             |
+| /authors/`id`                                                   | PATCH       | Updates author                                             |
+| /genres/`id`                                                    | PATCH       | Updates genre                                              |
+| /books/`id`                                                     | DELETE      | Deletes book                                               |
+| /readers/`id`                                                   | DELETE      | Deletes reader                                             |
+| /authors/`id`                                                   | DELETE      | Deletes author                                             |
+| /genres/`id`                                                    | DELETE      | Deletes genre                                              |

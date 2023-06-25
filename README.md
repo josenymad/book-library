@@ -26,13 +26,22 @@ It features 4 tables: Books, Authors, Readers, and Genres.
 
    - `npm install`
 
-4. Start the app by running
+4. Set your environment variables in a `.env` file. For example:
+   
+            PGUSER=
+            PGHOST=
+            PGPASSWORD=
+            PGDATABASE=
+            PGPORT=
+            PORT=
+
+5. Start the app by running
 
    - `npm start`
 
-5. Open Postman to interact with the database.
+6. Open Postman to interact with the database.
 
-6. You can run the tests with
+7. After repeating step 4 with a `.env.test` file (whilst making sure the `PGDATABASE` name is different), you can also run the tests with
 
     - `npm test`
 
